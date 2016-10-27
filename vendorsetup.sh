@@ -1,2 +1,3 @@
-add_lunch_combo omni_bacon-userdebug
-add_lunch_combo omni_bacon-eng
+add_lunch_combo zos_bacon-eng
+add_lunch_combo zos_bacon-user
+add_lunch_combo zos_bacon-userdebug

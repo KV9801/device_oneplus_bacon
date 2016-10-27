@@ -11,30 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# Inherit omni-specific board config
-include device/oneplus/bacon/BoardConfigOmni.mk
+# Inherit from those products. Most specific first.
 
-$(call inherit-product, vendor/omni/config/gsm.mk)
-
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
-
-# must be before including omni part
-TARGET_BOOTANIMATION_SIZE := 1080x608
-
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from bacon device
-$(call inherit-product, device/oneplus/bacon/device_bacon.mk)
+$(call inherit-product, device/oneplus/bacon/bacon.mk)
 
-# Snapdragon Camera
-PRODUCT_PACKAGES += \
-    Find7Parts \
-    SnapdragonCamera
+# Enhanced NFC
+$(call inherit-product, vendor/zos/config/nfc_enhanced.mk)
 
-PRODUCT_NAME := omni_bacon
+# Inherit some common zos stuff.
+$(call inherit-product, vendor/zos/common.mk)
+
+PRODUCT_NAME := zos_bacon
 PRODUCT_DEVICE := bacon
+PRODUCT_BUILD_PROP_OVERRIDES += DEVICE_MAINTAINERS="Kaushik (~KV)"
 PRODUCT_MANUFACTURER := OnePlus
 PRODUCT_MODEL := A0001
 
@@ -46,9 +38,6 @@ TARGET_VENDOR_PRODUCT_NAME := bacon
 TARGET_VENDOR_DEVICE_NAME := A0001
 PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=A0001 PRODUCT_NAME=bacon
 
-## Use the latest approved GMS identifiers unless running a signed build
-ifneq ($(SIGN_BUILD),true)
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=oneplus/bacon/A0001:6.0.1/MMB29X/ZNH0EAS2JK:user/release-keys \
-    PRIVATE_BUILD_DESC="bacon-user 6.0.1 MMB29X ZNH0EAS2JK release-keys"
-endif
+    BUILD_FINGERPRINT=oneplus/bacon/A0001:6.0.1/MHC19Q/ZNH2KAS1KN:user/release-keys \
+    PRIVATE_BUILD_DESC="bacon-user 6.0.1 MHC19Q ZNH2KAS1KN release-keys"
